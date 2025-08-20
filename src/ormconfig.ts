@@ -1,16 +1,18 @@
 import { DataSource } from "typeorm";
 import { Exam } from "./entities/Exam";
 import { User } from "./entities/User";
+import dotenv from "dotenv";
 
+dotenv.config(); // carrega variáveis do .env
 
 export const AppDataSource = new DataSource({
     type: "mysql",
-    host: "localhost",
-    port: 3306,
-    username: "root",
-    password: "",//"IFuP95ibs1hICIF",
-    database: "saudebarceloserios",
-    synchronize: false, // para criar tabelas automaticamente (só em dev)
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
+    username: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+    synchronize: false,
     logging: false,
     entities: [User, Exam],
 });
